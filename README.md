@@ -1,12 +1,13 @@
-The Kolmogorov-Smirnov Test
-Introduction
+# The Kolmogorov-Smirnov Test
+
+## Introduction
 During data analysis, you have to satisfy a number of assumptions for the underlying dataset. One of the most common assumptions that you will come across is the "Normality Assumption", i.e., the underlying data roughly follows a normal distribution.
 
 If the data is not found to be normally distributed (i.e. data with kurtosis and skew while doing linear regression), you may first answer a question like: “Given my data … if there is a deviation from normality, will there be a material impact on my results?”
 
 In this lesson, we'll look at a popular statistical test for satisfying the normality assumption, the Kolmogorov-Smirnov test, or simply, the K-S test.
 
-Objectives
+## Objectives
 You will be able to:
 
 Explain the role of the normality assumption in statistical tests
@@ -19,50 +20,51 @@ In applied statistics, the question is not whether the data/residuals are perfec
 
 This question is answered through visualization techniques like qqplots, boxplots, or more advanced statistical tests including:
 
-The Shapiro-Wilk test;
-The Anderson-Darling test, and;
-The Kolmogorov-Smirnov test
+- The Shapiro-Wilk test;
+- The Anderson-Darling test, and;
+- The Kolmogorov-Smirnov test
 In this lesson, we'll focus on the Kolmogorov-Smirnov test (K-S test) which will give you a strong foundation to help you understand and implement other tests when needed.
 
-Kolmogorov-Smirnov Test
+## Kolmogorov-Smirnov Test
 A K-S test provides a way of comparing distributions, whether two sample distributions or a sample distribution with a theoretical distribution - comparable to what we've already seen when we learned about one sample or two-sample t-tests. The distributions are compared in their cumulative form as Empirical Cumulative Distribution Functions. The test statistic in K-S test used to compare distributions is simply the maximum vertical distance between the two functions. Essentially, we are testing the sample data against another sample, to compare their distributions for similarities.
 
-The Empirical Cumulative Distribution Function (ECDF)
+## The Empirical Cumulative Distribution Function (ECDF)
 An empirical cumulative distribution function (CDF) is a non-parametric estimator of the underlying CDF of a random variable. It assigns a probability to each data point, orders the data from smallest to largest in value, and calculates the sum of the assigned probabilities up to and including each data point.
 
 The most intuitive way to think about the empirical distribution function is that it relates to the cumulative distribution function (CDF) in a similar way to how a histogram relates to a probability density function. Let's look at the following figures to get this idea:
-
-
+![image](https://github.com/user-attachments/assets/88a1dfcd-8d6e-4837-8219-52435cae3ed6)
 
 The left figure shows a regular histogram with samples looking like a normal distribution. The right figure shows the same samples except each bin in the histogram contains the cumulative count of samples up to that bin, which approximates the shape of the CDF for this random variable. Now the right figure doesn't exactly represent an empirical distribution function because the Y-axis is not normalized to 1 and the samples are binned instead of just plotted cumulatively. Nonetheless, the idea remains the same. An example of an empirical CDF is given below:
-
-
+![image](https://github.com/user-attachments/assets/c5ab10cf-6301-4a0b-89e0-c36508c51de6)
 
 This image sums up the intuition for empirical distribution function. The blue line is our empirical CDF whereas the grey one is our theoretical CDF (i.e. plotted using parameters and fitting a probability function).
 
 If X is a random variable with CDF , and  are i.i.d. random variables sampled from X. Then, the empirical distribution function,  , is a CDF:
 
+![image](https://github.com/user-attachments/assets/60cf5dff-ed76-4f8b-8ead-eb59cb310972)
 
 
-One-Sample K-S test
+## One-Sample K-S test
+
 This is also known as the Kolmogorov-Smirnov Goodness of Fit test. It calculates the similarity between an observed (empirical) distribution and a completely specified theoretical continuous distribution. It is sensitive to all attributes of a distribution including mean, variance, and shape.
 
 The key assumption of the one-sample test is that the theoretical distribution is fully defined continuous distribution, in terms of its parameters. This obviously means that its most common use case is that of testing normality. The test statistic,  , is simply the largest deviation between the observed cumulative function and the expected theoretical cumulative frequency distribution, i.e.
 
+![image](https://github.com/user-attachments/assets/07f8f305-be8c-45ad-a9ee-8768f1cb3db8)
 
 
 where - d is the maximum deviation Kolmogorov statistic - F0(X) = (No.of observations ≤ X)/(Total no.of observations) i.e. the non parametric empirical distribution - Fr(X) = The theoretical frequency distribution of X - parametric (e.g. based on mean value)
 
 
 
-Null Hypothesis: There is no difference between the distribution of our sample and a normal distribution.
+- Null Hypothesis: There is no difference between the distribution of our sample and a normal distribution.
 
-Acceptance Criteria: If the calculated value is less than the critical value, accept the null hypothesis.
+- Acceptance Criteria: If the calculated value is less than the critical value, accept the null hypothesis.
 
-Rejection Criteria: If the calculated value is greater than the critical value, reject the null hypothesis.
+- Rejection Criteria: If the calculated value is greater than the critical value, reject the null hypothesis.
 
-Example
-Problem Statement:
+### Example
+### Problem Statement:
 In a study done from various modules of a data science course with 60 students, equal number of students are samples from each module. These students are interviewed and their intention to join the advanced machine learning module was noted. Following shows how many students showed a positive intention
 
 Python (5)
@@ -125,6 +127,7 @@ We sort the combined sample, in order to compute the empirical cdfs:
 
 the combined sample, in order to compute the empirical cdf’s: 1.2 1.4 1.9 3.7 4.4 4.8 5.6 6.5 6.6 6.9 9.2 9.7 10.4 10.6 17.3 19.3 21.1 28.4 Fx 0.1 0.2 0.3 0.4 0.5 0.6 0.6 0.6 0.6 0.6 0.6 0.7 0.7 0.7 0.8 0.8 0.9 1.0 Fy 0.0 0.0 0.0 0.0 0.0 0.0 0.1 0.2 0.4 0.5 0.6 0.6 0.8 0.9 0.9 1.0 1.0 1.0
 
+![image](https://github.com/user-attachments/assets/bd81549b-d07c-40a1-bc3d-66fd4a8fe463)
 
 
 The Kolmogorov-Smirnov statistic is again the maximum absolute difference of the two observed distribution functions. From the above image, and also by feeding above values in the given formula, we get d = 0.6.
